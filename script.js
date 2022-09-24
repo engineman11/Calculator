@@ -1,122 +1,306 @@
-let screen = document.getElementById("screen");
+const screen = document.getElementsByClassName("screen")[0];
 
-const percent = document.getElementById("%");
-const ce = document.getElementById("CE")
-const c = document.getElementById("C")
-const del = document.getElementById("DEL")
-const oneDividedBy = document.getElementById("1/x")
-const square = document.getElementById("x²")
-const squareRoot = document.getElementById("√x")
-const divide = document.getElementById("/")
-const seven = document.getElementById("7")
-const eight = document.getElementById("8")
-const nine = document.getElementById("9")
-const multiply = document.getElementById("*")
-const four = document.getElementById("4")
-const five = document.getElementById("5")
-const six = document.getElementById("6")
-const minus = document.getElementById("-")
-const one = document.getElementById("1")
-const two = document.getElementById("2")
-const three = document.getElementById("3")
-const plus = document.getElementById("+")
-const posNeg = document.getElementById("+/-")
-const zero = document.getElementById("0");
-const dot = document.getElementById(".");
-const equals = document.getElementById("=");
-
-
-const checkKeyDown = function(e) {
-    if (!isNaN(Number(document.querySelector(`div[data-key="${e.keyCode}"]`).textContent))) {
-        setX()
-    } else {
-        setOperator()
-    }
+const clear = function(e) {
+    displayValue = 0;
+    screen.textContent = displayValue
+    hasOperated = "false"
+    operator = "empty";
+    screen.classList.remove("fontSizeClass")
 }
 
+const clearEntry = function(e) {
+    displayValue = 0;
+    screen.textContent = displayValue
+    hasOperated = "false"
+    screen.classList.remove("fontSizeClass")
+}
 
-const setX = function() {
+const backspace = function(e) {
+    if (hasOperated == "true") return
+    displayValue = displayValue.toString()
+    if (displayValue === 0 || displayValue === "0") {
+        return
+    } else {
+        if (displayValue.length == 1) {
+            displayValue = 0
+        } else {
+            displayValue = displayValue.split("")
+            displayValue.pop()
+            displayValue = displayValue.join("")
+        }
+    }
+    console.log("display = " + displayValue)
+    screen.textContent = displayValue
+}
+
+const setFloat = function() {
+    if (hasOperated == "true") displayValue = 0
+    displayValue = displayValue.toString()
+    if (Array.from(displayValue).some(element => element == ".")) return
+    displayValue = displayValue.split("")
+    displayValue.push(".")
+    displayValue = displayValue.join("")
+    screen.textContent = displayValue
+    hasOperated = "false"
+    return displayValue
+}
+
+const setPosNeg = function() {
+    displayValue = (displayValue * -1)
+    screen.textContent = displayValue
+    return displayValue
+}
+
+const calcSquareRoot = function() {
+    if (displayValue < 0) {
+        screen.textContent = "Invalid Input"
+        screen.classList.add("fontSizeClass")
+        return
+    }
+    displayValue = Math.sqrt(displayValue)
+    roundResult();
+}
+
+const calcSquare = function() {
+    displayValue = (displayValue * displayValue)
+    roundResult();
+}
+
+const calcDivideByX = function() {
+    if (displayValue == 0) {
+        screen.textContent = "Can't divide by zero"
+        screen.classList.add("fontSizeClass")
+        return
+    }
+    displayValue = (1 / displayValue)
+    roundResult(displayValue);
+}
+
+// ########### ROUND RESULT #############
+
+const roundResult = function() {
+    //displayValue = (Math.round(displayValue * 1000000000) / 1000000000)
+    displayValue = displayValue.toString()
+    if (displayValue.length > 9) {
+        screen.classList.add("fontSizeClass")
+    } else {
+        if (screen.classList.contains("fontSizeClass")) screen.classList.remove("fontSizeClass")
+    }
+    screen.textContent = displayValue
+    hasOperated = "true"
+}
+
+const setKeydownX = function(e) {
     let x = document.querySelector(`div[data-key="${e.keyCode}"]`).textContent;
     console.log("x = " + x)
-    getDisplayValue(x)       
+    getDisplayValue(x)
 }
 
-const setOperator = function(e) {
-    let operator = document.querySelector(`div[data-key="${e.keyCode}"]`).textContent;
-    if (operator == "=") {
+function setClickedX(numberClicked) {
+    let x = numberClicked;
+    console.log("x = " + x);
+    getDisplayValue(x);
+}
 
+const checkKeydownButton = function(e) {
+    if (!isNaN(document.querySelector(`div[data-key="${e.keyCode}"]`).textContent)) {
+        setKeydownX(e)
+    } else {
+        checkKeydownOperator(e)
     }
 }
 
-const operate = function() {
-    let temp = displayValue
-    let b = setOperator();
-    displayValue = 0
-    let firstValue = temp
-    let secondValue = 
-    if (b == "+") displayValue = (firstValue + secondValue)
-    if (b == "-") displayValue = (firstValue - secondValue)
-    if (b == "*") displayValue = (firstValue * secondValue)
-    if (b == "/") {
-         if (firstValue == 0 && secondValue == 0) displayValue = "Resut is undefined"
-    } else if (secondValue == 0) displayValue = "Can't divide by zero"
-    else displayValue = (firstValue / secondValue)
-    document.getElementById("screen").textContent = displayValue
+const checkClickedButton = function(button) {
+    if (!isNaN(button.textContent)) {
+        console.log(button.textContent)
+        let numberClicked = button.textContent
+        console.log("checkClick " + numberClicked)
+        setClickedX(numberClicked)
+    } else {
+        let operatorByClick = button.textContent
+        checkClickedOperator(operatorByClick)
+    }
+}
+
+const checkClickedOperator = function(operatorByClick) {
+    let temp = operatorByClick
+    if (temp == "⌫") {
+        backspace();
+    } else if (temp == "C") {
+        clear();
+    } else if (temp == "CE") {
+        clearEntry();
+    } else if (temp == "/") {
+        operate(temp);
+    } else if (temp == "*") {
+        operate(temp);
+    } else if (temp == "-") {
+        operate(temp);
+    } else if (temp == "+") {
+        operate(temp);
+    } else if (temp == "=") {
+        calculate();
+    } else if (temp == ".") {
+        setFloat();
+    } else if (temp == "+/-") {
+        setPosNeg();
+    } else if (temp == "√x") {
+        calcSquareRoot();
+    } else if (temp == "x²") {
+        calcSquare();
+    } else if (temp == "1/x") {
+        calcDivideByX();
+    } else if (temp == "%") {
+        operate(temp);
+    } 
+}
+
+const checkKeydownOperator = function(e) {
+    let temp = document.querySelector(`div[data-key="${e.keyCode}"]`).textContent
+    if (temp == "⌫") {
+        backspace();
+    } else if (temp == "C") {
+        clear();
+    } else if (temp == "CE") {
+        clearEntry();
+    } else if (temp == "/") {
+        setKeydownOperator(temp);
+    } else if (temp == "*") {
+        setKeydownOperator(temp);
+    } else if (temp == "-") {
+        setKeydownOperator(temp);
+    } else if (temp == "+") {
+        setKeydownOperator(temp);
+    } else if (temp == "=") {
+        calculate();
+    } else if (temp == ".") {
+        setFloat();
+    } else if (temp == "+/-") {
+        setPosNeg();
+    } else if (temp == "√x") {
+        calcSquareRoot();
+    } else if (temp == "x²") {
+        calcSquare();
+    } else if (temp == "1/x") {
+        calcDivideByX();
+    } else if (temp == "%") {
+
+    } 
+}
+
+const setKeydownOperator = function(temp) {
+    operator = checkKeydownOperator();
+    
+    displayValue = 0;
+    return displayValue
+}
+
+const setClickedOperator = function() {
+    operator = checkClickedOperator();
+    
+    displayValue = 0;
+    return displayValue
+}
+
+// const getFirstValue = function() {
+//     let firstValue = displayValue
+//     displayValue = 0
+//     return firstValue
+// }
+
+// const getSecondValue = function() {
+//     let secondValue = displayValue
+//     displayValue = 0
+//     return secondValue
+// }
+
+let firstValue
+
+let secondValue
+
+let hasOperated = "false"
+
+let operator = "empty"
+
+let result
+
+// const getSecondValue = function() {
+//     if (operator == "empty") 
+
+
+// }
+
+const calculate = function() {
+    if (operator == "empty") return
+    console.log(operator)
+    secondValue = displayValue
+    result
+    if (operator == "+") result = (Number(firstValue) + Number(secondValue))
+    if (operator == "-") result = (Number(firstValue) - Number(secondValue))
+    if (operator == "*") result = (Number(firstValue) * Number(secondValue))
+    if (operator == "/") {
+        if (firstValue == 0 && secondValue == 0) {
+            result = "Result is undefined"
+            screen.classList.add("fontSizeClass")
+        } else if (secondValue == 0) {
+            result = "Can't divide by zero"
+            screen.classList.add("fontSizeClass")
+        } else result = (Number(firstValue) / Number(secondValue))
+    }
+    screen.textContent = result
+    firstValue = result
+    hasOperated = "true"
+}
+
+const operate = function(temp) {
+    console.log(operator)
+
+    firstValue = displayValue
+    operator = temp
+    hasOperated = "true"
+    return
 }
 
 let displayValue = 0
 
 function getDisplayValue(x) {
-    if (displayValue == 0) {
+    if (displayValue === 0 || displayValue === "0" || hasOperated == "true") {
         displayValue = x
+
     } else if (displayValue.length >= 9) {
         return
     } else {
-        displayValue = Array.from(displayValue)
+        displayValue = displayValue.split("")
         displayValue.push(x)
         displayValue = displayValue.join("")
     }
-    
-    // displayValue = parseInt(displayValue)
     console.log("display = " + displayValue)
-    document.getElementById("screen").textContent = displayValue
+    screen.textContent = displayValue
+    hasOperated = "false"
+    screen.classList.remove("fontSizeClass")
     return displayValue
-
 }
 
-// function addClassPressed() {
-//     document.getElementById("3").classList.add("buttonPressed");
-// }
-// function removeClassPressed() {
-//     button.classList.remove("buttonPressed");
-// }
+document.addEventListener("keydown", checkKeydownButton)
 
+const buttons = Array.from(document.querySelectorAll('.button'));
 
-// // document.querySelectorAll(".button")
+buttons.forEach(button => button.addEventListener('click', () => {
+    checkClickedButton(button)
+}));
 
-// document.getElementById("3").addEventListener("mousedown", addClassPressed)
+buttons.forEach(button => button.addEventListener('mouseover', () => {
+    button.style.backgroundColor ="rgb(63, 63, 63)"
+}));
 
-// document.querySelectorAll(".button").addEventListener("mouseup", removeClassPressed)
+buttons.forEach(button => button.addEventListener('mousedown', () => {
+    button.style.backgroundColor ="rgb(150, 150, 150)"
+}));
 
+buttons.forEach(button => button.addEventListener('mouseup', () => {
+    button.style.backgroundColor =""
+}));
 
-document.addEventListener("keydown", checkKeyDown)
-
-// 96 - 0 in the numeric keypad
-// 97 - 1 in the numeric keypad
-// 98 - 2 in the numeric keypad
-// 99 - 3 in the numeric keypad
-// 100 - 4 in the numeric keypad
-// 101 - 5 in the numeric keypad
-// 102 - 6 in the numeric keypad
-// 103 - 7 in the numeric keypad
-// 104 - 8 in the numeric keypad
-// 105 - 9 in the numeric keypad
-// 106 - * in the numeric keypad
-// 107 - + in the numeric keypad
-// 109 - - in the numeric keypad
-// 110 - . in the numeric keypad
-// 111 - / in the numeric keypad
-
-
-
-// document.addEventListener("")
+buttons.forEach(button => button.addEventListener('mouseleave', () => {
+    button.style.backgroundColor =""
+}));
