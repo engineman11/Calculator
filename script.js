@@ -133,7 +133,7 @@ const calcSquare = function() {
 const calcDivideByX = function() {
     if (hasReceivedErrorOutput) return
     if (currentOperand == 0) {
-        currentOperand = "Can't divide by zero"
+        currentOperand = "Only Chuck Norris can divide by zero"
         disableButtons();
         updateDisplay();
         return
@@ -181,6 +181,17 @@ const compute = function() {
             computation = prev * current
             break
         case "/":
+            if (current == 0 && prev == 0) {
+                currentOperand = "Result is undefined"
+                disableButtons();
+                updateDisplay();
+                return
+            } else if (current == 0) {
+                currentOperand = "Only Chuck Norris can divide by zero"
+                disableButtons();
+                updateDisplay();
+                return
+            }
             computation = prev / current
             break
         default:
