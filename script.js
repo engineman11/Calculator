@@ -125,7 +125,8 @@ const calcSquareRoot = function() {
 
 const calcSquare = function() {
     if (hasReceivedErrorOutput) return
-    currentOperand = (currentOperand * currentOperand)
+    currentOperand = (Math.round((currentOperand * currentOperand) * 1000000000000000) / 1000000000000000)
+
     updateDisplay();
     hasCalculated = true
 }
@@ -133,7 +134,7 @@ const calcSquare = function() {
 const calcDivideByX = function() {
     if (hasReceivedErrorOutput) return
     if (currentOperand == 0) {
-        currentOperand = "Only Chuck Norris can divide by zero"
+        currentOperand = "Only Chuck Norris can divide by zero."
         disableButtons();
         updateDisplay();
         return
@@ -187,7 +188,7 @@ const compute = function() {
                 updateDisplay();
                 return
             } else if (current == 0) {
-                currentOperand = "Only Chuck Norris can divide by zero"
+                currentOperand = "Only Chuck Norris can divide by zero."
                 disableButtons();
                 updateDisplay();
                 return
@@ -197,7 +198,7 @@ const compute = function() {
         default:
             return
     }
-    currentOperand = computation
+    currentOperand = (Math.round(computation * 1000000000000000) / 1000000000000000)
     operation = undefined
     previousOperand = ""
     updateDisplay();
@@ -265,6 +266,15 @@ const updateDisplay = function() {
     }
     if (currentOperand == "666") previousOperandScreen.textContent = `👹🎃💀👿💀🎃👹`
     if (currentOperand == "1337") previousOperandScreen.textContent = `😎💻`
+    if (currentOperand == "80085") previousOperandScreen.textContent = `heh...`
+    if (currentOperand == "420") previousOperandScreen.textContent = `Don't do drugs plx.`
+    if (currentOperand == "69") previousOperandScreen.textContent = `👀`
+    if (currentOperand == "42") previousOperandScreen.textContent = `correct`
+    if (currentOperand == "777") previousOperandScreen.textContent = `🎉🎉🎉`
+    if (currentOperand.includes('25.8069758011')) previousOperandScreen.textContent = `Root of all evil.`
+
+
+    
 }
 
 const setKeydownNumber = function(e) {
@@ -369,6 +379,10 @@ buttons.forEach(button => button.addEventListener('click', () => {
     checkClickedButton(button)
 }));
 
+buttons.forEach(button => button.addEventListener('touchstart', () => {
+    checkClickedButton(button)
+}));
+
 // const mouseMoveListener = function(button) {
 //     'pointerover', () => {
 //     button.style.backgroundColor ="rgb(80, 80, 80)"
@@ -392,6 +406,8 @@ buttons.forEach(button => button.addEventListener('pointerup', () => {
 buttons.forEach(button => button.addEventListener('pointerleave', () => {
     button.style.backgroundColor =""
 }));
+
+
 
 // document.addEventListener('pointerdown', mouseDownListener, true);
 // document.addEventListener('pointerup', mouseUpListener, true);
