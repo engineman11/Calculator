@@ -370,15 +370,15 @@ buttons.forEach(button => button.addEventListener('pointerover', () => {
     button.style.backgroundColor ="rgb(80, 80, 80)"
 }));
 
-buttons.forEach(button => button.addEventListener('mousedown', () => {
+buttons.forEach(button => button.addEventListener('pointerdown', () => {
     button.style.backgroundColor ="rgb(150, 150, 150)"
 }));
 
-buttons.forEach(button => button.addEventListener('mouseup', () => {
+buttons.forEach(button => button.addEventListener('pointerup', () => {
     button.style.backgroundColor ="rgb(80, 80, 80)"
 }));
 
-buttons.forEach(button => button.addEventListener('mouseleave', () => {
+buttons.forEach(button => button.addEventListener('pointerleave', () => {
     button.style.backgroundColor =""
 }));
 
