@@ -18,7 +18,7 @@ let currentOperand = ""
 
 let previousOperand = ""
 
-percentCalcOperand = ''
+let percentCalcOperand = ''
 
 let operation = undefined
 
