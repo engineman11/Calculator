@@ -379,9 +379,6 @@ buttons.forEach(button => button.addEventListener('click', () => {
     checkClickedButton(button)
 }));
 
-buttons.forEach(button => button.addEventListener('touchstart', () => {
-    checkClickedButton(button)
-}));
 
 // const mouseMoveListener = function(button) {
 //     'pointerover', () => {
