@@ -240,8 +240,9 @@ function appendNumber(number) {
 }
 
 const updateDisplay = function() {
-    if (currentOperand === "") screen.textContent = "0"
-    else screen.textContent = currentOperand
+    if (currentOperand === "") currentOperand = "0"
+  //  else 
+    screen.textContent = currentOperand
     if (currentOperand.toString().length > 10 && currentOperand.toString().length < 17) {
         screen.classList.add("fontSizeClassMedium")
         screen.classList.remove("fontSizeClassSmall")
