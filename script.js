@@ -14,7 +14,7 @@ const previousOperandScreen = document.getElementsByClassName("previousOperand")
 
 const buttons = Array.from(document.querySelectorAll('.button'));
 
-let currentOperand = ""
+let currentOperand = "0"
 
 let previousOperand = ""
 
