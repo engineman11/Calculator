@@ -1,5 +1,5 @@
 ## **[Calculator Live Demo](https://engineman11.github.io/Calculator/)**
 
-This calculator is a simple Microsoft Calculator clone. The functionality is WIP.
+This calculator aims to mimic appearance and basic functionality of the Microsoft Windows calculator.
 
 Purpose: Improve JavaScript and programming understanding.
