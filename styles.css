@@ -5,7 +5,7 @@ body {
     margin: 0;
     height: 100vh;
     width: 100vw;
-    background-color: rgb(26, 23, 20);
+    background-color: rgb(48, 48, 48);
     color: white;
     font-family: Arial, Helvetica, sans-serif;
 
@@ -18,7 +18,7 @@ body {
     align-items: center;
     height: 75%;
     width: 50vh;
-    background-color: rgb(33, 33, 33);
+    background-color: rgb(65, 65, 65);
     box-shadow: 0 0 10px black;
 }
 
@@ -53,7 +53,7 @@ body {
 }
 
 .button {
-    background-color: rgb(20, 20, 20);
+    background-color: rgb(44, 44, 44);
     text-align: center;
     font-size: large;
     display: flex;
@@ -62,13 +62,13 @@ body {
 }
 
 .number {
-    background-color: rgb(8, 8, 8);
+    background-color: rgb(26, 26, 26);
     font-weight: 700 ;
 
 }
 
 .equals {
-    background-color: rgb(49, 49, 49);
+    background-color: rgb(112, 112, 112);
 }
 
 /* :hover.button, :hover.equals{
