@@ -1,4 +1,4 @@
-### Project Number 0x02: Calculator
+# Project # 0x02: Calculator
 
 ## **[Calculator Live Demo](https://engineman11.github.io/Calculator/)**
 
