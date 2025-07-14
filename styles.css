@@ -20,6 +20,7 @@ body {
     width: 50vh;
     background-color: rgb(65, 65, 65);
     box-shadow: 0 0 10px black;
+    border-radius: 1%;
 
 }
 
@@ -60,7 +61,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 25% !important;
+    border-radius: 5% !important;
 }
 
 .number {
