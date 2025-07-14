@@ -20,7 +20,7 @@ body {
     width: 50vh;
     background-color: rgb(65, 65, 65);
     box-shadow: 0 0 10px black;
-    border-radius: 25%;
+
 }
 
 .screen {
@@ -51,6 +51,7 @@ body {
     grid-template-columns: repeat(4, 24.5%);
     grid-auto-rows: 1fr;
     gap: 0.7%;
+    border-radius: 25%;
 }
 
 .button {
@@ -60,6 +61,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 25%;
 }
 
 .number {
